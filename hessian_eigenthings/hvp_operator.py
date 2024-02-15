@@ -110,10 +110,15 @@ class HVPOperator(Operator):
         Compute gradient w.r.t loss over all parameters and vectorize
         """
         try:
+            all_inputs, all_targets, _ = next(self.dataloader_iter)
+        except ValueError: 
             all_inputs, all_targets = next(self.dataloader_iter)
         except StopIteration:
             self.dataloader_iter = iter(self.dataloader)
-            all_inputs, all_targets = next(self.dataloader_iter)
+            try : 
+                all_inputs, all_targets, _ = next(self.dataloader_iter)
+            except ValueError: 
+                all_inputs, all_targets = next(self.dataloader_iter)
 
         num_chunks = max(1, len(all_inputs) // self.max_possible_gpu_samples)
 

@@ -1,4 +1,13 @@
 """ Top-level module for hessian eigenvec computation """
+
+import os
+import sys
+
+path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(path)
+sys.path.append(path+"/hessian_eigenthings")
+
+
 from hessian_eigenthings.power_iter import power_iteration, deflated_power_iteration
 from hessian_eigenthings.lanczos import lanczos
 from hessian_eigenthings.hvp_operator import HVPOperator
